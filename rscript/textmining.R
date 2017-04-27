@@ -73,14 +73,8 @@ get_noun <- function(x){
 rtn_Jieba = {}
 rtn_noun_Jieba = {}
 
-# Remove all punctuation except comma[^[:alnum:],]
-#x_data = gsub('[^[:alnum:]]','',x_data)
-
 print("Start using cutter...")
 rtn_words <- sapply(articles, function(x) cutter <=x)
-#rtn_Jieba <- lapply(rtn_words, '[[', 1)
-
-#rtn_noun_Jieba <- lapply(rtn_Jieba, function(x) get_noun(unlist(x)))
 
 ##Data extraction
 data_ep <- function(x){
@@ -94,20 +88,6 @@ data_ep <- function(x){
   
   ##Remove words which nchar==1.
   x_cdf <- x_cdf[which(nchar(x_cdf$terms)>1),]
-  ##Remove words with num...(ex. IDs)
-  #x = x[which(!grepl('[0-9]',x))]
-  #x = tolower(x)
-  
-  #x_df = as.data.frame(x,stringsAsFactors=F)
-  #x_cdf = data.frame(table(x), stringsAsFactors=F) ##ddply(x_df , c('x'), nrow)
-  #x_cdf$x <- as.character(x_cdf$x)
-  #x_cdf = x_cdf[order(-x_cdf$Freq),]
-  #write.csv(x_cdf,paste0('output/x/',format(Sys.time(), "%Y_%d_%b"),'x_output_tolower_temp.csv'),row.names=F)
-  
-  ##tolower.. once again
-  #x_cdf[,1] = tolower(x_cdf[,1])
-  #x_cdf = ddply(x_cdf , c('x'), summarize, sum(V1))
-  #x_cdf = x_cdf[order(-x_cdf[,2],x_cdf[,1]),]
   
   return(x_cdf[order(-x_cdf$doc_counts),])
 }
@@ -201,13 +181,7 @@ CNCorpus = function(d.vec){
   
   Corpus(VectorSource(doc))
 }
-#corpus <- Corpus(VectorSource(rtn_words))
-#dtm_psy <- TermDocumentMatrix(corpus)
-#tdm <- DocumentTermMatrix(corpus,control = list(wordLengths = c(2, Inf)))
-#inspect(tdm)
-#tdm
 
-#source('https://raw.githubusercontent.com/ywchiu/rtibame/master/Lib/CNCorpus.R')
 s.corpus <- CNCorpus(rtn_words)
 control.list=list(wordLengths=c(2,Inf),tokenize=space_tokenizer)
 s.dtm <- DocumentTermMatrix(s.corpus, control=control.list)
