@@ -12,7 +12,7 @@ library(text2vec)
 
 ## Import related files and cleaning... ####
 
-topic <- "華夏"
+topic <- "統測"
 source<- "LineQ"
 #topic <- "SENIORHIGH"
 #source<- "ptt"
@@ -25,8 +25,9 @@ inputFolderDate <- list.files(file.path("..", "WebCrawler", "output", topic))
 dat_articles <- read.csv(paste0(file.path("..", "WebCrawler", "output", topic,
                                           inputFolderDate, paste0(source, "_", topic, "_articles.csv"))), 
                 stringsAsFactors = FALSE)
-toMatch      <- c("學", "校")
+#toMatch      <- c("學", "校")
 #toMatch      <- "佛光"
+toMatch      <- ""
 
 if(source=="LineQ"){
   dat_articles <- unique(dat_articles)
@@ -53,8 +54,8 @@ if(source=="LineQ"){
 ## Or just remain seperated ?
 articles <- c(dat_articles$Content, dat_replies$Replies)
 articles <- toupper(articles)
-tmp <- articles
-articles <- c(articles, tmp)
+#tmp <- articles ##?
+#articles <- c(articles, tmp)
 ## END #####
 
 ## JiebaR segmentation ####
